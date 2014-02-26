@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:twilio="http://www.mulesoft.org/schema/mule/twilio" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="EE-3.4.1" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/current/mule-stdio.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/twilio http://www.mulesoft.org/schema/mule/twilio/1.0/mule-twilio.xsd">
+
+    <stdio:connector name="stdio" messageDelayTime="1000" promptMessage="Enter Name :" doc:name="STDIO"/>
+   
+    
+    
+    <flow name="mystdio" doc:name="mystdio">
+     
+        <stdio:inbound-endpoint system="IN" connector-ref="stdio" doc:name="STDIO"/>
+       
+        <https:outbound-endpoint exchange-pattern="request-response" host="www.googleapis.com" port="443" method="GET" doc:name="HTTP" path="fusiontables/v1/query?sql=select%20*%20from%2011YF6PUn1Yd5z74LKeuiQZ2m4SNjINkK40sZpvIM&amp;key=AIzaSyAa2ct1byw889hbUSyoG6zPC6WGbSOQ2no"/>
+        <component class="org.mule.json.ReadFusionStream" doc:name="Java"/>
+        <collection-splitter doc:name="Collection Splitter"/>
+         
+        
+       
+        
+       
+         
+        <stdio:outbound-endpoint system="OUT" connector-ref="stdio" doc:name="STDIO"/>
+    </flow>
+    
+  
+    
+</mule>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="simpleproject">
+    <global-element name="STDIO" type="http://www.mulesoft.org/schema/mule/stdio/connector" entity-id="STDIO#1">
+        <properties>
+            <property name="dispatcherPoolFactory-ref"/>
+            <property name="messageDelayTime" value="1000"/>
+            <property name="promptMessage" value="Enter Name :"/>
+            <property name="outputMessageCode"/>
+            <property name="name" value="stdio"/>
+            <property name="resourceBundle"/>
+            <property name="validateConnections"/>
+            <property name="dynamicNotification"/>
+            <property name="outputMessage"/>
+            <property name="promptMessageCode"/>
+            <property name="auxiliary;index" value="1"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="mystdio" type="http://www.mulesoft.org/schema/mule/core/flow" entity-id="07acc6dd-7d80-4e28-ab9a-dd8cbaac9ef0">
+        <properties>
+            <property name="initialState"/>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property name="auxiliary;index" value="2"/>
+        </properties>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
+            <graphicalData x="0" y="0" width="0" height="0"/>
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="STDIO" type="http://www.mulesoft.org/schema/mule/stdio/endpoint" entity-id="STDIO#2">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="businessEventsLabel"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="exchange-pattern"/>
+                    <property name="ref"/>
+                    <property name="system" value="IN"/>
+                    <property name="transformer-refs"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property name="connector-ref" value="stdio"/>
+                </properties>
+            </endpoint>
+            <endpoint direction="Outbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="port" value="443"/>
+                    <property name="contentType"/>
+                    <property name="password"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="encoding"/>
+                    <property name="path" value="fusiontables/v1/query?sql=select%20*%20from%2011YF6PUn1Yd5z74LKeuiQZ2m4SNjINkK40sZpvIM&amp;key=AIzaSyAa2ct1byw889hbUSyoG6zPC6WGbSOQ2no"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="connector-ref-outbound"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="host" value="www.googleapis.com"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/https/endpoint"/>
+                    <property name="keep-alive"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="ref"/>
+                    <property name="httpLabel"/>
+                    <property name="transformer-refs"/>
+                    <property name="address"/>
+                    <property name="method" value="GET"/>
+                    <property name="user"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern name="Java" type="http://www.mulesoft.org/schema/mule/core/component" entity-id="Java#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="class" value="org.mule.json.ReadFusionStream"/>
+                    <property name="auxiliary;index" value="5"/>
+                </properties>
+            </pattern>
+            <pattern name="Collection Splitter" type="http://www.mulesoft.org/schema/mule/core/collection-splitter" entity-id="Collection Splitter#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="businessEventsLabel"/>
+                    <property name="enableCorrelation"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="tracking:enable-default-events"/>
+                </properties>
+            </pattern>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="STDIO" type="http://www.mulesoft.org/schema/mule/stdio/endpoint" entity-id="STDIO#3">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="businessEventsLabel"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="exchange-pattern"/>
+                    <property name="ref"/>
+                    <property name="system" value="OUT"/>
+                    <property name="transformer-refs"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="auxiliary;index" value="7"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property name="connector-ref" value="stdio"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+</mule-configuration>
